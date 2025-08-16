@@ -1,6 +1,6 @@
 venv*/
 logs/
 __pycache__/
-.DSTORE
+.DS_STORE
 anime_recommender.egg-info
 .env
