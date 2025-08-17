@@ -1,3 +1,7 @@
+"""
+Chroma store data preprocessing + vectorstore loading/building/saving.
+"""
+
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.document_loaders.csv_loader import CSVLoader
@@ -17,9 +21,7 @@ class VectorStoreBuilder:
 
     def build_and_save_vectorstore(self) -> None:
         loader = CSVLoader(
-            file_path=self.csv_path,
-            encoding="utf-8",
-            metadata_columns=[]
+            file_path=self.csv_path, encoding="utf-8", metadata_columns=[]
         )
 
         data = loader.load()
@@ -31,14 +33,11 @@ class VectorStoreBuilder:
 
         # Convert to embeddings, saved to new vector db:
         db = Chroma.from_documents(
-            texts,
-            self.embedding,
-            persist_directory=self.persist_dir
+            texts, self.embedding, persist_directory=self.persist_dir
         )
         db.persist()
 
     def load_vectorstore(self) -> Chroma:
         return Chroma(
-            persist_directory=self.persist_dir,
-            embedding_function=self.embedding
+            persist_directory=self.persist_dir, embedding_function=self.embedding
         )

@@ -1,3 +1,9 @@
+"""
+AnimeDataLoader ingests a source CSV,
+and generates a processed version, for vectorstore building
+purposes.
+"""
+
 import pandas as pd
 
 
@@ -14,15 +20,14 @@ class AnimeDataLoader:
             raise ValueError(f"Missing column(s) in CSV: {missing}")
 
         df["combined_info"] = (
-            "Title: " + df["Name"] + ".. Overview: " + df["synopsis"] + "Genres: " + df["Genres"]
+            "Title: "
+            + df["Name"]
+            + ".. Overview: "
+            + df["synopsis"]
+            + "Genres: "
+            + df["Genres"]
         )
 
         df[["combined_info"]].to_csv(self.processed_csv, index=False, encoding="utf-8")
 
         return self.processed_csv
-
-
-
-
-
-

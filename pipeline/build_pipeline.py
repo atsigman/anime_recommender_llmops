@@ -1,3 +1,6 @@
+"""
+Script for building vector store for the first time.
+"""
 
 from dotenv import load_dotenv
 from src.data_loader import AnimeDataLoader
@@ -15,10 +18,13 @@ def main():
     try:
         logger.info("Building pipeline...")
         # Initialize dataloader:
-        loader = AnimeDataLoader("data/anime_with_synopsis.csv", "data/anime_updated.csv")
+        loader = AnimeDataLoader(
+            "data/anime_with_synopsis.csv", "data/anime_updated.csv"
+        )
         processed_csv = loader.load_and_process()
         logger.info("Data loaded and processed")
 
+        # Build Chroma vectorstore:
         vector_builder = VectorStoreBuilder(csv_path=processed_csv)
         vector_builder.build_and_save_vectorstore()
         logger.info("Vector store built successfully.")

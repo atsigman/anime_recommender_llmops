@@ -1,11 +1,16 @@
+"""
+Script for launching anime recommendation system app.
+
+Example usage: python -m streamlit run app/app.py
+"""
+
 import streamlit as st
 
 from dotenv import load_dotenv
 from pipeline.pipeline import AnimeRecommendationPipeline
 
 
-st.set_page_config(page_title="Anime Recommender",
-                   layout="wide")
+st.set_page_config(page_title="Anime Recommender", layout="wide")
 st.title("Anime Recommender System")
 
 load_dotenv()
@@ -15,12 +20,16 @@ load_dotenv()
 def init_pipeline():
     return AnimeRecommendationPipeline()
 
+
+# Init pipeline:
 pipeline = init_pipeline()
 
-query = st.text_input("Enter your anime preferences (e.g.: light-hearted drama with school setting)")
+query = st.text_input(
+    "Enter your anime preferences", placeholder="a light-hearted drama with a school setting"
+)
 
 if query:
-   with st.spinner("Retrieving recommendations..."):
+    with st.spinner("Retrieving recommendations..."):
         response = pipeline.recommend(query)
         st.markdown("### Recommendations")
         st.write(response)

@@ -1,3 +1,7 @@
+"""
+Prompt template for LLM interaction.
+"""
+
 from langchain.prompts import PromptTemplate
 
 
